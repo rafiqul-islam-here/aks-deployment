@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: rafiqhere/staticapp:frontend
+        image: rafiqhere/app-service-apps:frontend
         imagePullPolicy: Always
         ports:
         - containerPort: 80

@@ -41,33 +41,21 @@ metadata:
   name: frontend-ingress
   annotations:
 
-    # 🔐 IP Restriction (choose ONE approach)
-    # nginx.ingress.kubernetes.io/whitelist-source-range: "103.25.44.0/24,192.168.0.1/30"
-    # nginx.ingress.kubernetes.io/denylist-source-range: "103.25.44.0/24,45.67.89.10/32"
-
-    # 🚦 Rate Limiting (DDoS protection basic layer)
+    # 🚦 Rate Limiting (basic protection)
     nginx.ingress.kubernetes.io/limit-rps: "30"
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
-
-    # 🔌 Connection limit per IP
     nginx.ingress.kubernetes.io/limit-connections: "20"
 
-    # 📦 Prevent large payload attacks
+    # 📦 Request size protection
     nginx.ingress.kubernetes.io/proxy-body-size: "5m"
 
-    # ⏱ Optional bandwidth control (rarely used)
+    # ⏱ Optional throttling
     nginx.ingress.kubernetes.io/limit-rate-after: "10"
 
-    # 🔒 HTTPS behavior (only works if TLS enabled)
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # ❌ NO TLS / SSL redirect removed
 
 spec:
   ingressClassName: nginx
-
-  tls:
-  - hosts:
-    - staticapp.test
-    secretName: staticapp-tls
 
   rules:
   - host: staticapp.test

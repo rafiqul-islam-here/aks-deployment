@@ -5,7 +5,7 @@ metadata:
   labels:
     app: frontend
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: frontend
@@ -39,27 +39,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: frontend-ingress
-  annotations:
-
-    # Rate Limiting (basic protection)
-    nginx.ingress.kubernetes.io/limit-rps: "30"
-    nginx.ingress.kubernetes.io/limit-burst-multiplier: "3"
-    nginx.ingress.kubernetes.io/limit-connections: "20"
-
-    # Request size protection
-    nginx.ingress.kubernetes.io/proxy-body-size: "5m"
-
-    # Optional throttling
-    nginx.ingress.kubernetes.io/limit-rate-after: "10"
-
-    # NO TLS / SSL redirect removed
-
 spec:
   ingressClassName: nginx
-
   rules:
-  - host: staticapp.test
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
